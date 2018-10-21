@@ -25,6 +25,7 @@ const usersmoude={
                  let Data={
                username:data.username,
                password:data.password,
+               nickname:data.nickname,
                repassword:data.password,
                phone:data.phone,
                isAdmin:data.isAdmin
@@ -61,10 +62,35 @@ const usersmoude={
                        
             }));
          })
-    }
+    },
   
 
-
+    // 登录验证
+   login(data,cb){
+        MongoClient.connect(url,function(err,client){
+            if(err){
+                cb({msg:'连接数据库失败'});
+            }else{
+                const db=client.db('user');
+                    db.collection('users').find({
+                    username:data.username,
+                    password:data.password
+                }).toArray(function(err,data){
+                    if(err){cb({msg:err});client.close();}
+                    else if(data.length<=0){
+                            cb({msg:'用户名或密码错误'});
+                    }else{cb(null,{
+                            username:data[0].username,
+                            isAdmin:data[0].isAdmin,
+                            nickname:data[0].nickname
+                         })
+                    }
+                    client.close();
+                });
+               
+            }
+        })
+   }
     
 }
 

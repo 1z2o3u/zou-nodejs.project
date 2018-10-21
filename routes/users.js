@@ -9,9 +9,6 @@ router.get('/', function(req, res, next) {
 
 router.post('/register',function(req,res){
   console.log('获取传递过来的post请求数据');
-  // console.log(req.body);
-
- 
     if(!/^[a-zA-Z0-9]{6,10}$/.test(req.body.username)){
       res.render('werror',{
         code:-1,
@@ -35,7 +32,6 @@ router.post('/register',function(req,res){
       })
       return;
     }
-  
     usersmoude.add(req.body,function(err){
       if(err){
         res.render('werror',err)
@@ -43,4 +39,13 @@ router.post('/register',function(req,res){
        res. redirect('/login.html');
       });      
 });
+// 登录处理
+router.post('/login',function(req,res){
+    usersmoude.login(req.body,function(err){
+      if(err){
+          res.render('werror',err);
+      }
+      res. redirect('/');
+    });
+})
 module.exports = router;
