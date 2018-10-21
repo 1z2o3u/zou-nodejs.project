@@ -1,0 +1,56 @@
+body {
+  padding: 50px;
+  background: rgb(129, 139, 143);
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+h1{
+  /* font-size: 24px; */
+  text-align: center;
+}
+
+.form-group{
+  overflow: hidden;
+  margin-top: 30px;
+  position: relative;
+  
+}
+.form-control{
+  width:300px;
+  height: 50px;;
+  float: right;
+  margin-right:400px;
+}
+form{
+  margin-left: 300px;
+
+}
+label{
+  float: left;
+  margin-top: 15px;
+  font-size: 18px;
+}
+.btn{
+  margin: 20px 0 0 200px;
+  background: rgb(215, 223, 228);
+  font-size: 18px;
+  color: #423f42;
+  /* border:1px solid rgb(13, 54, 238); */
+  width: 100px;
+}
+
+input[type=checkbox], input[type=radio] {
+  margin:15px 0 0 80px;
+  margin-top: 1px\9;
+  height: 23px;
+  width: 23px;
+  line-height: normal;
+}
+ .form-group  span{
+   position: absolute;
+   margin-bottom: 10px;
+   top:17px;
+ }
