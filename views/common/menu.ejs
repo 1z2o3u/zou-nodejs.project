@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <div class="menu">
+                <ul>
+                    <% if(isAdmin){%>
+                        <li class="menu_item  ">
+                           <a href="/user-manager.html" class="ad  user_admin"">用户管理</a> 
+                        </li>
+                    <% }  %>
+
+                   
+                    
+                  
+                    <li class="menu_item  ">
+                       <a href="/phone-manager.html" class="ad   phone_admin">手机管理</a> 
+                    </li>
+                    <li class="menu_item"  >
+                        <a href="/brand-manager.html" class="ad  brand_admin">品牌管理</a> 
+                     </li>
+                </ul>
+            </div>
+</body>
+</html>
+<script src="/lib/jquery/jquery.min.js"> </script>
+<script>
+    var url= location.href.split("3000/")[1];
+    if(url=="phone-manager.html"){
+        $(".phone_admin").attr("class","current")
+    } if(url=="user-manager.html"){
+        $(".user_admin").attr("class","current")
+
+    }if(url=="brand-manager.html"){
+        $(".brand_admin").attr("class","current")
+    }
+
+</script>

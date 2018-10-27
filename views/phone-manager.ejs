@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/reset.css">
+
+    <style>
+
+        .header .header_left {
+            margin:-60px 0 0 200px;
+            color: rgb(15, 140, 223);
+            font-size: 24px;
+        }
+
+        .add_wrap,.update{
+            width: 500px;
+            height: 600px;
+            border:1px solid #000;
+            background: red;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -300px;
+            margin-top: -200px;
+            display: none;
+        }
+        table{
+            width: 800px;
+            margin: 40px auto;
+        }
+        #addPhone{
+            margin: 30px 420px;
+            padding: 16px  40px;
+            font-size: 18px;
+        }
+        h2{
+            text-align: center;
+            margin: 60px 0 10px;
+        }
+        input{
+            display: block;
+            width: 300px;
+            height: 40px;
+            margin: 20px auto;
+            border:1px solid #fff;
+            border-radius: 5px;
+        }
+        select{
+            display: block;
+            width: 300px;
+            height: 40px;
+            margin: 20px auto;
+            border:1px solid #fff;
+            border-radius: 5px;
+        }
+         #phoneImg,.phoneImg{
+            border: none;
+        }
+        #add{
+            margin-left: 280px;
+        }
+        .add{
+            margin-left: 280px;
+        }
+
+        img{
+            width: 100%;
+        }
+
+         table {
+             border-collapse: collapse;
+             border-spacing: 0;
+         }
+        .page{
+             position: fixed;
+            right:20px;
+           bottom:0px;
+        }
+        .prev,.next,.on{
+            display: inline-block;
+            background:#000;
+            color: #fff;
+            padding: 10px 20px;
+        }
+        .modify{
+            text-decoration: underline;
+            color: blue;
+        }
+   
+        .tr{
+            position: relative;
+        }
+
+        .lastTd{
+            position: absolute;
+            /* background: red; */
+            height: 100%;
+            width: 3%;
+            vertical-align: middle;
+            left:200px;
+            z-index: 5;
+        }
+  
+    
+    </style>
+
+
+
+
+
+</head>
+<body>
+
+
+
+
+        <div class="index">
+    
+                <%- include('./common/header.ejs',{nickname:nickname,isAdmin:isAdmin}) %>
+                <div class="container">
+                  <%- include('./common/menu.ejs',{isAdmin:isAdmin}) %>
+                  <div class="main">
+                     
+
+                        <button id=addPhone> 添加手机</button>
+                        <div class="add_wrap">
+                            <h2>新增手机</h2>
+                            <form action="javascript:;" enctype="multipart/form-data">
+                                    <input type="text" placeholder="手机名称" id="phoneName">
+                                    <!-- <input type="text" placeholder="手机品牌" id="phoneBrand"> -->
+                                     <select id="phoneBrand" >
+                                        <option value="">手机品牌</option>
+                                    </select> 
+                                    <input type="text" placeholder="官方指导价" id="phonePrice">
+                                    <input type="text" placeholder="二手回收价" id="recoverPrice">
+                                    <input type="file" id="phoneImg" name="phone">
+                                    <button type="submit"    id="add">新增</button>
+                                    <button id="cancel">取消</button>
+                            
+                            </form>
+                           
+                        </div>
+                        <table border="1"  >
+                            <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>图片</th>
+                                    <th>手机名称</th>
+                                    <th>手机品牌</th>
+                                    <th>官方指导价</th>
+                                    <th>二手回收价</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    
+                            </tbody>
+                            <div class="page">
+                                <div class="prev"><</div>
+                                <div class="on"></div>
+                                <div class="next">></div>
+                            </div>
+                        </table>
+                    
+                        <div class="update">
+                                <h2>修改</h2>
+                                <form action="javascript:;" enctype="multipart/form-data">
+                                        <input type="text" placeholder="序号" readonly="readonly" id="id" >
+                                        <input type="text" placeholder="手机名称" class="phoneName">
+                                        <input type="text" placeholder="手机品牌" class="phoneBrand">
+                                        <input type="text" placeholder="官方指导价" class="phonePrice">
+                                        <input type="text" placeholder="二手回收价" class="recoverPrice">
+                                        <input type="file" class="phoneImg" name="phone">
+                                        <button type="submit"   class="add">提交</button>
+                                        <button class="cancel">取消</button>
+                                
+                                </form> 
+                         </div>    
+
+
+                  </div>
+                </div>
+              </div>       
+
+
+
+   
+    <script src="/lib/jquery/jquery.min.js"></script>
+    <script src="/js/phone.js"></script>   
+</body>
+</html>

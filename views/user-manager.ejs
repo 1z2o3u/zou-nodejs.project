@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+
+      .serch{
+        text-align: center;
+        margin-top: 60px;
+      }
+      .serch input{
+          height: 50px;
+          width: 300px;
+          border: 1px solid rgb(94, 90, 90);
+          border-radius: 8px;
+      }
+     
+      .serch button{
+          background: rgb(18, 54, 212);
+          width: 80px;
+          height: 50px;
+          border: none;
+          color: #fff;
+          border-radius: 8px;
+      }
+      
+      .content{
+          width: 1000px;
+          margin: 80px auto;
+      }
+    .page{
+        position: absolute;
+        /* width: 200px; */
+        right: 10px;
+        top:500px;
+    }
+    ul{
+        overflow: hidden;
+    }
+    .page ul li{
+        float: left;
+        padding: 5px 10px;
+        margin-right: 20px;
+        color: #fff;
+        background: rgb(18, 54, 212);
+    }
+    .page ul li a{
+        text-decoration: none;
+        color: #fff;
+        background: rgb(18, 54, 212);
+       
+    }
+    .page .page_current{
+        float: left;
+        padding: 5px 10px;
+        margin-right: 20px;
+        color: #fff;
+        background: rgb(243, 33, 33);
+    }
+
+   
+
+  </style>
+  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="/css/reset.css">
+  
+</head>
+<body>
+    <div class="index">
+    
+             <%- include('./common/header.ejs',{nickname:nickname,isAdmin:isAdmin}) %>
+        <div class="container">
+             <%- include('./common/menu.ejs',{isAdmin:isAdmin}) %>
+             <div class="main">
+            <div class="serch">
+                <form action="/search.html" method="GET">
+                    <input type="text" name="nickname" placeholder="输入用户昵称">
+                    <button type="submit">搜索</button>
+                </form>    
+            </div>
+            <div class="content">
+                    <table style='margin:0 auto;' border=1 > 
+                            <thead>                              
+                                <tr>
+                                    <th>序号</th>
+                                    <th>用户名</th>
+                                    <th>用户昵称</th>
+                                    <th>手机号码</th>
+                                    <th>性别</th>
+                                    <th>年龄</th>
+                                    <th>是否为管理员</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                             <% if(!(nick=="")){
+                                    for(var i=0;i<nick.length;i++){%>  
+                                <tr>
+                                        <td><%=nick[i]._id %></td>
+                                        <td class="td_username"><%=nick[i].username %></td>
+                                        <td><%=nick[i]. nickname%></td>
+                                        <td><%=nick[i].phone %></td>
+                                        <td><%=nick[i].sex||'-'%></td>
+                                        <td><%=nick[i].age||'-' %></td>
+                                        <td><%=parseInt(nick[i].isAdmin)?'是':'否' %></td>
+                                        <td>
+
+                                                <%if(userList[i].username===username){%>
+                                                <a href="#" class="modify">修改</a>
+                                            <% }  else if(parseInt(userList[i].isAdmin)){ %>
+        
+                                                <% } else{ %>
+                                                    <a href="#"class="modify">修改</a>
+                                                    <a href="./delete.html?username=<%=nick[i].username %>"class="del" >删除</a>
+                                               <% } %>
+                                                
+                                            </td>
+                                        
+                                </tr>            
+                                <%}
+                            }else if(tips==undefined){  
+                                for(var i=0;i<userList.length;i++){%>
+                                     <tr>
+                                    <td><%=userList[i]._id %></td>
+                                    <td  class="td_username"><%=userList[i].username %></td>
+                                    <td><%=userList[i]. nickname%></td>
+                                    <td><%=userList[i].phone %></td>
+                                    <td><%=userList[i].sex||'-'%></td>
+                                    <td><%=userList[i].age||'-' %></td>
+                                    <td><%=parseInt(userList[i].isAdmin)?'是':'否' %></td>
+                                    <td>
+
+                                        <%if(userList[i].username===username){%>
+                                        <a href="#"class="modify">修改</a>
+                                    <% }  else if(parseInt(userList[i].isAdmin)){ %>
+
+                                        <% } else{ %>
+                                            <a href="#" class="modify">修改</a>
+                                            <a href="./delete.html?username=<%=userList[i].username %>" class="del">删除</a>
+                                       <% } %>
+                                        
+                                    </td>
+                                     </tr>
+                                 <% }
+                                    }else  { %>
+                                    <tr>
+                                        <td>无相关记录</td>
+                                    </tr>
+                             <% }%>   
+                            </tbody>
+                        </table>
+
+            </div>
+            <div class="page">
+                <ul>
+                   <li>第</li>
+                <% for(var i=1;i<=totalPage;i++){  %>
+                    <a href="/user-manager.html?page=<%= i %>&pageSize=<%= pageSize %>" >
+                    <li class="on_page">
+                        <%= i %>
+                    </li></a>
+                <%  }  %>  
+                <li>页</li>  
+                </ul>
+            </div>
+             </div>
+             <%- include('./common/update.ejs') %>
+        </div>
+
+    </div>
+</body>
+</html>
+<script src="/lib/jquery/jquery.min.js"></script>
+<script>
+
+    
+    $('.modify').click(function(){
+        $('.update').show();
+        var username= $(this).parent().parent().children().eq(1).html();
+        $('.username').val(username);
+    });
+    $('.no').click(function(){
+        $('.update').hide();
+    });
+    $('.sub').click(function(){
+        $('.update').hide();
+    })
+
+    $('.del').click(function(){
+        alert('删除成功!')
+    });
+
+    if(location.search){
+        var i= location.href.split("?")[1].split("&")[0].split("=")[1];
+    }else{
+        var i=1;
+    }  
+    $('.on_page').eq(i-1).attr("class","page_current")
+</script>
+
+
